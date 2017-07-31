@@ -191,4 +191,4 @@ the ``lang`` and ``extfile`` elements are optional. if don't write each one , wi
 ## to highlighting the code , [ace editor](https://github.com/ajaxorg/ace) is used. 
 
 # Author
-this is created by [poryagrand](https://github.com/poryagrand) . power by [Tedjs](https://tedjs.org)
+this is created by [poryagrand](https://github.com/poryagrand) . Powered by [Tedjs](https://tedjs.org)
