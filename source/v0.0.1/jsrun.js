@@ -18689,26 +18689,32 @@ ted.create(js, function(color, width, height) {
             }
 
             if (tedApi.attr(html, "url") !== -1) {
-                tedApi.http({
-                    url: tedApi.attr(html, "url"),
-                    success: function(data) {
-                        HTDOM.innerHTML = encodeHtml(fn(data.content));
-                        var editor = ace.edit(HTDOM);
-                        if (color === 'dark') {
-                            editor.setTheme("ace/theme/chrome");
-                        } else {
-                            editor.setTheme("ace/theme/monokai");
-                        }
-                        editor.getSession().setMode("ace/mode/" + name);
-                        HTDOM.jsEditor = editor;
-                        countReady.count--;
-                    },
-                    error: function(e) {
-                        throw "jsRun Exeption: there is an erro while fething data!\n" + e;
+
+                function start(HT, DOM, Nam) {
+                        tedApi.http({
+                            url: tedApi.attr(HT, "url"),
+                            success: function(data) {
+                                DOM.innerHTML = encodeHtml(data.content);
+                                var editor = ace.edit(DOM);
+                                if (color === 'dark') {
+                                    editor.setTheme("ace/theme/chrome");
+                                } else {
+                                    editor.setTheme("ace/theme/monokai");
+                                }
+                                editor.getSession().setMode("ace/mode/" + Nam);
+                                DOM.jsEditor = editor;
+                                DOM.JS_FN = fn;
+                                countReady.count--;
+                            },
+                            error: function(e) {
+                                throw "jsRun Exeption: there is an erro while fething data!\n" + e;
+                            }
+                        });
                     }
-                });
+
+                    start(html, HTDOM, name);
             } else {
-                HTDOM.innerHTML = encodeHtml(decodeHtml(fn(html.innerHTML)));
+                HTDOM.innerHTML = encodeHtml(decodeHtml(html.innerHTML));
                 var editor = ace.edit(HTDOM);
                 if (color === 'dark') {
                     editor.setTheme("ace/theme/chrome");
@@ -18717,6 +18723,7 @@ ted.create(js, function(color, width, height) {
                 }
                 editor.getSession().setMode("ace/mode/" + name);
                 HTDOM.jsEditor = editor;
+                HTDOM.JS_FN = fn;
                 countReady.count--;
             }
         }
@@ -18760,7 +18767,7 @@ ted.create(js, function(color, width, height) {
                         tedApi.http({
                             url: tedApi.attr(HT, "url"),
                             success: function(data) {
-                                DOM.innerHTML = encodeHtml(fn(data.content));
+                                DOM.innerHTML = encodeHtml(data.content);
                                 var editor = ace.edit(DOM);
                                 if (color === 'dark') {
                                     editor.setTheme("ace/theme/chrome");
@@ -18769,6 +18776,7 @@ ted.create(js, function(color, width, height) {
                                 }
                                 editor.getSession().setMode("ace/mode/" + Nam);
                                 DOM.jsEditor = editor;
+                                DOM.JS_FN = fn;
                                 countReady.count--;
                             },
                             error: function(e) {
@@ -18777,17 +18785,12 @@ ted.create(js, function(color, width, height) {
                         });
                     }
 
-                    // if (!checkEmpty(tedApi.attr(html, "path"))) {
-
-                    // } else {
-                    //     HTDOM.URL = tedApi.attr(html, "url");
-                    // }
                     start(html, HTDOM, name);
 
 
                 } else {
 
-                    HTDOM.innerHTML = encodeHtml(decodeHtml(fn(html.innerHTML)));
+                    HTDOM.innerHTML = encodeHtml(decodeHtml(html.innerHTML));
                     var editor = ace.edit(HTDOM);
                     if (color === 'dark') {
                         editor.setTheme("ace/theme/chrome");
@@ -18796,6 +18799,7 @@ ted.create(js, function(color, width, height) {
                     }
                     editor.getSession().setMode("ace/mode/" + name);
                     HTDOM.jsEditor = editor;
+                    HTDOM.JS_FN = fn;
                     countReady.count--;
                 }
             }
@@ -18844,11 +18848,12 @@ ted.create(js, function(color, width, height) {
             extendsText = [],
             extendLink = [];
 
-        htmlText = htmlText.length > 0 ? htmlText[0].jsEditor.getValue() : null;
-        cssText = cssText.length > 0 ? cssText[0].jsEditor.getValue() : null;
-        jsText = jsText.length > 0 ? jsText[0].jsEditor.getValue() : null;
+        htmlText = htmlText.length > 0 ? htmlText[0].JS_FN(htmlText[0].jsEditor.getValue()) : null;
+        cssText = cssText.length > 0 ? cssText[0].JS_FN(cssText[0].jsEditor.getValue()) : null;
+        jsText = jsText.length > 0 ? jsText[0].JS_FN(jsText[0].jsEditor.getValue()) : null;
 
         for (var i = 0; i < extendsDom.length; i++) {
+            console.log(extendsDom[i],extendsDom[i].JS_FN);
             if (typeof extendsDom[i].jsRunPath !== typeof undefined) {
                 var inChange = ["html", "js", "css"];
                 //var urlRegexp = new RegExp("((([\"\'])[ \\S\\s]*[ \s]"+"/js/a/js"+"\\3|([\"\'])"+"/js/a/js"+"[ \\s][ \\S\\s]*\\4|([\"\'])[ \\S\\s]*[ \s]"+"/js/a/js"+"[ \\s][ \\S\\s]*\\5)|([\"\'])"+"/js/a/js"+"\\6)","g");
@@ -18862,7 +18867,7 @@ ted.create(js, function(color, width, height) {
                 for (var j = 0; j < inChange.length; j++) {
                     if ((inChange[j] === "html" && htmlText !== null)) {
                         var randName = "JSRun" + tedApi.random(5, "hash") + i;
-                        extendsText.push("var " + randName + " = " + minify(extendsDom[i].jsEditor.getValue()) + ";");
+                        extendsText.push("var " + randName + " = " + minify(extendsDom[i].JS_FN(extendsDom[i].jsEditor.getValue())) + ";");
 
                         var tmp1 = "var aFileParts = [" + randName + "];" +
                             "var oMyBlob = new Blob(aFileParts, { type: 'text/" + extendsDom[i].jsRunPath.type + "' });" +
@@ -18881,7 +18886,7 @@ ted.create(js, function(color, width, height) {
                     }
                     if ((inChange[j] === "css" && cssText !== null)) {
                         var randName = "JSRun" + tedApi.random(5, "hash") + i;
-                        extendsText.push("var " + randName + " = " + minify(extendsDom[i].jsEditor.getValue()) + ";");
+                        extendsText.push("var " + randName + " = " + minify(extendsDom[i].JS_FN(extendsDom[i].jsEditor.getValue())) + ";");
 
                         var tmp1 = "var aFileParts = [" + randName + "];" +
                             "var oMyBlob = new Blob(aFileParts, { type: 'text/" + extendsDom[i].jsRunPath.type + "' });" +
@@ -18900,7 +18905,7 @@ ted.create(js, function(color, width, height) {
                     }
                     if ((inChange[j] === "js" && jsText !== null)) {
                         var randName = "JSRun" + tedApi.random(5, "hash") + i;
-                        extendsText.push("var " + randName + " = " + minify(extendsDom[i].jsEditor.getValue()) + ";");
+                        extendsText.push("var " + randName + " = " + minify(extendsDom[i].JS_FN(extendsDom[i].jsEditor.getValue())) + ";");
 
                         var tmp1 = "var aFileParts = [" + randName + "];" +
                             "var oMyBlob = new Blob(aFileParts, { type: 'text/" + extendsDom[i].jsRunPath.type + "' });" +
@@ -18920,7 +18925,7 @@ ted.create(js, function(color, width, height) {
                 }
             } else {
                 extendLink.push({
-                    value: extendsDom[i].jsEditor.getValue(),
+                    value: extendsDom[i].JS_FN(extendsDom[i].jsEditor.getValue()),
                     type: extendsDom[i].jsRunType
                 });
             }
@@ -18951,6 +18956,21 @@ ted.create(js, function(color, width, height) {
         if (jsText !== null) {
             output += "<script type='text/javascript'>" + jsText + "</script>";
         }
+
+
+        /*
+        var fragment =  document.createDocumentFragment();
+        fragment.appendChild(tedApi.parseHTML(decodeHtml(output)).childNodes.length > 1 ? tedApi.parseHTML(decodeHtml(output)).childNodes[1] : tedApi.parseHTML(decodeHtml(output)).childNodes[0]);
+
+        console.log(fragment)
+        resFrame = createIframe();
+        var doc = resFrame.contentDocument || resFrame.contentWindow.document;
+            //resFrame.appendChild(fragment.childNodes.length > 1 ? fragment.childNodes[1] : fragment.childNodes[0]);
+
+        console.dir(resFrame);
+
+        doc.replaceChild(fragment.childNodes.length > 1 ? fragment.childNodes[1] : fragment.childNodes[0],doc.documentElement);
+        */
 
 
         resFrame = createIframe();
