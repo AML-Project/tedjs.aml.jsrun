@@ -139,6 +139,8 @@ editor has two color. dark and light.
             * ``path-in`` Attribute :
 
                 with this , you can tell element that the file name should be accessible within which files. ``html`` , ``css`` or ``javascript`` or multiple of them.
+
+                **Notice**: at this time , because the url is converting to local , it is accessible in javascript
                 ```html
                 <extfile ... path-in="html"></extfile>
                 ```
@@ -333,6 +335,8 @@ the ``lang`` and ``extfile`` elements are optional. if don't write each one , wi
                 از طریق این اتریبیوت می توانید به سیستم بگویید که فایل تعریف شده در اتریبیوت قبل در کدام کد ها قابل دسترسی می باشد.مقدار های مجاز هر یک از موارد زیر یا ترکیبی از آن ها می باشد.
 
                 ``html`` , ``css`` , ``javascript``
+
+                به دلیل اینکه آدرس به صورت لوکال تبدیل می شود فعلا تنها در فایل های جاوا اسکریپت در دسترس می باشد.
 
                 ```html
                 <extfile ... path-in="html"></extfile>

@@ -18853,7 +18853,6 @@ ted.create(js, function(color, width, height) {
         jsText = jsText.length > 0 ? jsText[0].JS_FN(jsText[0].jsEditor.getValue()) : null;
 
         for (var i = 0; i < extendsDom.length; i++) {
-            console.log(extendsDom[i],extendsDom[i].JS_FN);
             if (typeof extendsDom[i].jsRunPath !== typeof undefined) {
                 var inChange = ["html", "js", "css"];
                 //var urlRegexp = new RegExp("((([\"\'])[ \\S\\s]*[ \s]"+"/js/a/js"+"\\3|([\"\'])"+"/js/a/js"+"[ \\s][ \\S\\s]*\\4|([\"\'])[ \\S\\s]*[ \s]"+"/js/a/js"+"[ \\s][ \\S\\s]*\\5)|([\"\'])"+"/js/a/js"+"\\6)","g");
@@ -18956,22 +18955,6 @@ ted.create(js, function(color, width, height) {
         if (jsText !== null) {
             output += "<script type='text/javascript'>" + jsText + "</script>";
         }
-
-
-        /*
-        var fragment =  document.createDocumentFragment();
-        fragment.appendChild(tedApi.parseHTML(decodeHtml(output)).childNodes.length > 1 ? tedApi.parseHTML(decodeHtml(output)).childNodes[1] : tedApi.parseHTML(decodeHtml(output)).childNodes[0]);
-
-        console.log(fragment)
-        resFrame = createIframe();
-        var doc = resFrame.contentDocument || resFrame.contentWindow.document;
-            //resFrame.appendChild(fragment.childNodes.length > 1 ? fragment.childNodes[1] : fragment.childNodes[0]);
-
-        console.dir(resFrame);
-
-        doc.replaceChild(fragment.childNodes.length > 1 ? fragment.childNodes[1] : fragment.childNodes[0],doc.documentElement);
-        */
-
 
         resFrame = createIframe();
         var doc = document.implementation.createHTMLDocument("Jsrun");
