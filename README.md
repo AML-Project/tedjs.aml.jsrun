@@ -171,8 +171,8 @@ the ``lang`` and ``extfile`` elements are optional. if don't write each one , wi
         color:white;
     }</lang>
 
-    <lang type="js">
-        alert(a);
+    <lang type="js" preCompile="run">
+        2
     </lang>
 
     <extfile type="js">
@@ -184,6 +184,12 @@ the ``lang`` and ``extfile`` elements are optional. if don't write each one , wi
     </extfile>
 
 </jsrun>
+
+<script>
+    function run(data) {
+        return "alert("+data+")";
+    }
+</script>
 ```
 
 
