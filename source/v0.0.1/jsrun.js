@@ -18935,7 +18935,7 @@ ted.create(js, function(color, width, height) {
         for (var k = 0; k < extendLink.length; k++) {
             if (extendLink[k].type === "javascript") {
                 output += "<script type='text/javascript'>" + extendLink[k].value + "</script>";
-            } else if (extendLink[ki].type === "css") {
+            } else if (extendLink[k].type === "css") {
                 output += "<style>" + extendLink[k].value + "</style>";
             }
         }
