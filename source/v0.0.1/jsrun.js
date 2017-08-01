@@ -18494,7 +18494,7 @@ var encodeHtml = function(html) {
 
 var minify = function(data) {
     data = data.escape().split(/\n/);
-    data = '"' + data.join('"+"') + '"';
+    data = '"' + data.join('\\n"+"') + '"';
     return data;
 }
 
