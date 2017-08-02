@@ -18661,7 +18661,7 @@ ted.create(js, function(color, width, height) {
     resetIframe(resFrame);
 
     function createIframe() {
-        var resFrame2 = tedApi.elm("<iframe src='about:blank' active></iframe>");
+        var resFrame2 = tedApi.elm("<iframe active></iframe>");
         tedApi.css(resFrame2, {
             border: "none",
             width: "100%",
