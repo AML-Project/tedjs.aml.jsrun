@@ -18497,7 +18497,6 @@ var escape = function(data) {
 }
 
 var minify = function(data) {
-    console.log(data.escape);
     data = escape(data).split(/\n/);
     data = '"' + data.join('\\n"+"') + '"';
     return data;
