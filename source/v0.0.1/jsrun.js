@@ -18493,6 +18493,7 @@ var encodeHtml = function(html) {
 }
 
 var minify = function(data) {
+    console.log(data.escape);
     data = data.escape().split(/\n/);
     data = '"' + data.join('\\n"+"') + '"';
     return data;
