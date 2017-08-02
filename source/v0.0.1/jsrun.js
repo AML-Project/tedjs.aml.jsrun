@@ -18492,9 +18492,13 @@ var encodeHtml = function(html) {
     return html.replace(/\</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+var escape = function(data) {
+    return data.replace(/[\"\'\\\/]/g, "\\$&")
+}
+
 var minify = function(data) {
     console.log(data.escape);
-    data = data.escape().split(/\n/);
+    data = escape(data).split(/\n/);
     data = '"' + data.join('\\n"+"') + '"';
     return data;
 }
