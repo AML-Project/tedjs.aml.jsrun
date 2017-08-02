@@ -12,9 +12,10 @@ JsRun | system.aml.jsrun
 
 ### :: Description:
 
-jsRun is a plugin for Tedjs Framework. it help you to create a code editor in you site directly. you can define a file as an library and access to it from ajax with a file name , like a local file. it has JS,HTML and CSS with other external files that you can add to it.
+jsRun is a plugin for Tedjs Framework. it help you to create a code editor (Playground) in you site directly. you can define a file as an library and access to it from ajax with a file name , like a local file. it has JS,HTML and CSS with other external files that you can add to it.
 each external file can be edited in editor or just be a external library.
 editor has two color. dark and light.
+it support your own code parser to pre parse the codes.create your language front-end playground.
 
 ### :: Element Details
 * General Shape:
