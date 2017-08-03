@@ -1,5 +1,8 @@
 # JsRun - Tedjs Library
 
+## Guidance Language:
+* [English](#-language-english)
+* [فارسی](#-language-پارسی)
 
 ### :: Name Space and ID
 NameSpace | ID
