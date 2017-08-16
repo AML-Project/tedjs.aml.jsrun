@@ -95,7 +95,6 @@ it support your own code parser to pre parse the codes.create your language fron
             ```
 
     * ``lang`` Element
-
         the element ``lang`` will let you to insert any type of ``css`` , ``javascrip`` and ``html`` for one time. if there are more than one element of a same type , the first one will accepted.
         
         to define a ``lang`` element , you must do like this:
