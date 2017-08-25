@@ -377,16 +377,26 @@ the ``lang`` and ``extfile`` elements are optional. if don't write each one , wi
     
     <lang type="css">body{
         background:black;
-        color:white;
     }</lang>
 
     <lang type="js" preCompile="run">
-        2
+        32
     </lang>
 
-    <extfile type="js">
+    <extfile type="js" path="test.js">
+        tedApi.http({
+            url:"/folder/lib.js",
+            success:function(data){
+                console.log(data);
+            }
+        });
+    </extfile>
+
+    <extfile type="js" path="/folder/lib.js" path-in="js" name="lib.js">
         var a = 2;
     </extfile>
+
+    <extfile type="js" url="https://cdn.tedjs.org/tedjs/1.1.2/js/2ed.min.js"></extfile>
 
     <extfile type="css" path="style.css" name="Style">
         body{color:red !important;}
