@@ -1,5 +1,7 @@
 # JsRun - Tedjs Library
 
+**version** : 0.0.2
+
 ## Guidance Language:
 * [English](#-language-english)
 * [فارسی](#-language-پارسی)
